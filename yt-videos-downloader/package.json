@@ -7,7 +7,9 @@
     "dev": "vite",
     "build:web": "vite build",
     "build:ext": "vite build --config vite.ext.config.ts",
-    "build": "npm run build:web && npm run build:ext"
+    "build": "npm run build:web && npm run build:ext",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
     "lucide-react": "^0.536.0",
