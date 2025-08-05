@@ -13,11 +13,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// In yt-videos-backend/server.ts
 app.post('/api/qualities', async (req, res) => {
   const { url } = req.body;
-  if (!url) {
-    return res.status(400).json({ error: 'Invalid YouTube URL' });
-  }
+  if (!url) return res.status(400).json({ error: 'Invalid YouTube URL' });
 
   try {
     const info = await youtubedl(url, { dumpSingleJson: true }) as any;
@@ -35,13 +34,18 @@ app.post('/api/qualities', async (req, res) => {
       }))
       .sort((a, b) => (b.quality || '').localeCompare(a.quality || ''));
 
-    res.json({ qualities });
-
+    // Also return title and thumbnail
+    res.json({
+      qualities,
+      title: info.title || '',
+      thumbnail: info.thumbnail || ''
+    });
   } catch (error) {
     console.error('Error fetching video qualities:', error);
     res.status(500).json({ error: 'Failed to get video qualities.' });
   }
 });
+
 
 // backend/server.js or server.ts
 app.get('/api/download', (req, res) => {

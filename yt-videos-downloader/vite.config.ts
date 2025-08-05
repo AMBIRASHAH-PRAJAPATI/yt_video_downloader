@@ -5,18 +5,21 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
-    emptyOutDir: true, // Ensure a clean build directory
+    emptyOutDir: true, // Clean before build
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'index.html'),
-        content: resolve(__dirname, 'src/content.ts'),
-        background: resolve(__dirname, 'src/background.ts'),
+        popup: resolve(__dirname, 'index.html'),               // Extension popup
+        content: resolve(__dirname, 'src/content.ts'),         // Extension content script
+        background: resolve(__dirname, 'src/background.ts'),   // Extension background script
+        web: resolve(__dirname, 'src/web/index.html'),         // Webapp entry
       },
       output: {
-        // Ensure that each entry point is outputted to the root of the dist folder
-        entryFileNames: '[name].js',
-        // Also ensure that the manifest.json and other assets are in the root
+        entryFileNames: (chunk) => {
+          if (chunk.name === 'web') {
+            return 'web-dist/[name].js';
+          }
+          return 'ext-dist/[name].js';
+        },
         assetFileNames: '[name].[ext]',
         dir: 'dist',
       },
