@@ -28,7 +28,7 @@ const Popup: React.FC = () => {
         title={meta.title}
         thumbnail={meta.thumbnail}
         loading={loading}
-        videoUrl={meta.url ? `https://www.youtube.com/embed/${new URLSearchParams(new URL(meta.url).search).get("v")}` : undefined}
+        videoUrl={meta.url ? `https://www.youtube.com/embed/${new URLSearchParams(new URL(meta.url).search).get('v')}` : undefined}
       />
     </div>
   );
