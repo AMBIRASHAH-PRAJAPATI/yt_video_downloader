@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { DownloadButton } from "../components/DownloadButton";
 import { DownloadPopover } from "../components/DownloadPopover";
