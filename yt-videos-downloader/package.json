@@ -5,11 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "build:web": "vite build --config vite.web.config.ts",
+    "build:web": "vite build",
     "build:ext": "vite build --config vite.ext.config.ts",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "npm run build:web && npm run build:ext"
   },
   "dependencies": {
     "lucide-react": "^0.536.0",

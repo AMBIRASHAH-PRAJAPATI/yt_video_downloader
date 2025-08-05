@@ -38,10 +38,10 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
       url: downloadUrl,
       filename: `youtube-video-${formatId}.mp4`,
       saveAs: true,  // optional: prompts user to choose save location
-    });    
+    });
     sendResponse({ status: 'success' });
     return true;
-  } 
-  
+  }
+
   return false;
 });

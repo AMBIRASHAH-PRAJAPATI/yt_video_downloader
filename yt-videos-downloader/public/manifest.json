@@ -7,8 +7,7 @@
     "downloads",
     "storage",
     "activeTab",
-    "scripting",
-    "http://localhost:4000/*"
+    "scripting"
   ],
   "host_permissions": [
     "*://*.youtube.com/*"
@@ -17,13 +16,17 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "popup.html"
   },
   "content_scripts": [
-  {
-    "matches": ["*://*.youtube.com/*"],
-    "js": ["content.js"],
-    "run_at": "document_idle"
-  }
-]
+    {
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
 }
