@@ -1,5 +1,6 @@
 let currentVideoUrl = '';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
   if (request.action === 'setVideoUrl') {
     currentVideoUrl = request.url || '';
@@ -12,7 +13,7 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
     return true;
   }
   if (request.action === 'getQualities') {
-    fetch('http://localhost:4000/api/qualities', {
+    fetch(`${API_BASE_URL}/api/qualities`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: request.url }),
@@ -33,7 +34,7 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 
   if (request.action === 'downloadVideo') {
     const { url, formatId } = request;
-    const downloadUrl = `http://localhost:4000/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(formatId)}`;
+    const downloadUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(formatId)}`;
     chrome.downloads.download({
       url: downloadUrl,
       filename: `youtube-video-${formatId}.mp4`,

@@ -45,8 +45,18 @@ export function useVideoDownload() {
   function downloadHighest() {
     const best = qualities.find(q => q.hasVideo) || qualities[0];
     if (best) {
-      const downloadUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(meta.url)}&formatId=${encodeURIComponent(best.formatId)}`;
-      window.open(downloadUrl, "_blank");
+      if (typeof chrome !== 'undefined' && chrome.runtime?.id) {
+        // We are in a browser extension, send message to background script
+        chrome.runtime.sendMessage({
+          action: 'downloadVideo',
+          url: meta.url,
+          formatId: best.formatId,
+        });
+      } else {
+        // We are in the web app, use the standard download method
+        const downloadUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(meta.url)}&formatId=${encodeURIComponent(best.formatId)}`;
+        window.open(downloadUrl, "_blank");
+      }
     }
   }
 

@@ -10,7 +10,8 @@
     "scripting"
   ],
   "host_permissions": [
-    "*://*.youtube.com/*"
+    "*://*.youtube.com/*",
+    "http://localhost:4000/*"
   ],
   "background": {
     "service_worker": "background.js"
